@@ -52,7 +52,7 @@ export const MessageGroup = ({ messages, isOwn }: MessageGroupProps) => {
       </div>
       <div className="flex flex-col gap-2">
         {messages.map((msg) => (
-          <div key={`${msg.id}-${msg.timestamp}`}>
+          <div key={`${msg._id}-${msg.timestamp}`}>
             <p>{msg.text}</p>
           </div>
         ))}
