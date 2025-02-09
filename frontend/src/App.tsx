@@ -28,7 +28,6 @@ function App() {
   const [loginError, setLoginError] = useState<string | null>(null);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [hasReachedEnd, setHasReachedEnd] = useState(false);
   const lastLoadTimeRef = useRef<number>(0);
   const LOAD_COOLDOWN = 200;
@@ -90,7 +89,6 @@ function App() {
         // Scroll instantané vers le bas pour l'historique initial
         requestAnimationFrame(() => {
           scrollToBottom(false);
-          setIsInitialLoad(false);
         });
       }
     };
