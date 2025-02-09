@@ -16,6 +16,7 @@ services:
         - "traefik.http.routers.chat.entrypoints=websecure"
         - "traefik.http.routers.chat.tls.certresolver=le"
         - "traefik.http.services.chat.loadbalancer.server.port=3000" # 🔹 Ajout de cette ligne !
+        - "traefik.docker.network=traefik-public"
     environment:
       - MONGODB_URI=mongodb://mongodb:27017/chat
       - PORT=3000
