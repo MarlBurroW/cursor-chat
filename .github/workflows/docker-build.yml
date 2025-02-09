@@ -29,5 +29,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/chat:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/chat:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/cursor-chat:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/cursor-chat:${{ github.sha }}
