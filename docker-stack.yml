@@ -15,11 +15,13 @@ services:
         - "traefik.http.routers.chat.rule=Host(`chat.marlburrow.io`)"
         - "traefik.http.routers.chat.entrypoints=websecure"
         - "traefik.http.routers.chat.tls.certresolver=le"
+        - "traefik.http.services.chat.loadbalancer.server.port=3000" # 🔹 Ajout de cette ligne !
     environment:
       - MONGODB_URI=mongodb://mongodb:27017/chat
       - PORT=3000
     networks:
       - chat-network
+      - traefik-public # 🔹 Ajout du réseau partagé avec Traefik !
     depends_on:
       - mongodb
 
@@ -38,6 +40,8 @@ services:
 networks:
   chat-network:
     driver: overlay
+  traefik-public:
+    external: true # 🔹 Utilisation du même réseau que Traefik !
 
 volumes:
   mongodb_data:
