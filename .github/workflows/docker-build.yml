@@ -2,9 +2,8 @@ name: Docker Build and Push
 
 on:
   push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
+    tags:
+      - "v*" # Déclencher sur les tags qui commencent par 'v'
 
 env:
   DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -23,6 +22,10 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Extract version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
@@ -30,4 +33,4 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/cursor-chat:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/cursor-chat:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/cursor-chat:${{ steps.get_version.outputs.VERSION }}
