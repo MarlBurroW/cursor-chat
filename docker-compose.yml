@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  backend:
+    image: node:20-alpine
+    command: sh -c "yarn install && yarn dev"
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    working_dir: /app
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/chat
+    depends_on:
+      - mongodb
+
+  frontend:
+    image: node:20-alpine
+    command: sh -c "yarn install && yarn dev"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    working_dir: /app
+    ports:
+      - "3001:3001"
+
+  mongodb:
+    image: mongo:latest
+
+    volumes:
+      - mongodb_data:/data/db
+
+volumes:
+  mongodb_data:
