@@ -1,6 +1,6 @@
 # AI-Powered Real-Time Chat
 
-![Docker CI](https://github.com/MarlburroW/cursor-chat/actions/workflows/docker-publish.yml/badge.svg)
+![Docker CI](https://github.com/MarlburroW/cursor-chat/actions/workflows/docker-build.yml/badge.svg)
 
 Un chat en temps réel développé entièrement avec [Cursor](https://cursor.sh/), sans écrire une seule ligne de code manuellement. Une démonstration des capacités de l'IA dans le développement moderne.
 
