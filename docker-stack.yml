@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  backend:
+    image: marlburrow/cursor-chat:latest
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/chat
+      - PORT=3000
+    networks:
+      - chat-network
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:latest
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - chat-network
+
+networks:
+  chat-network:
+    driver: overlay
+
+volumes:
+  mongodb_data:
+    driver: local
